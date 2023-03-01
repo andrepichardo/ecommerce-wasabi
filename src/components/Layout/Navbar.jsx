@@ -6,8 +6,10 @@ import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import {
   RiHome5Line,
   RiMenu2Line,
+  RiMoonLine,
   RiSearchLine,
   RiShoppingBagLine,
+  RiSunLine,
   RiUserLine,
 } from 'react-icons/ri';
 import React, { useState, useEffect } from 'react';
@@ -88,7 +90,7 @@ export const Navbar = () => {
             height="50"
           />
         </Link>
-        <div>
+        <div className="flex items-center">
           <ul
             style={{ color: `${linkColor}` }}
             className="hidden md:flex items-center gap-10"
@@ -116,12 +118,19 @@ export const Navbar = () => {
                     className="min-w-[250px] xs:min-w-[300px] sm:min-w-[400px] w-full"
                     height={'100%'}
                   >
-                    Hola
+                    Carrito
                   </Box>
                 </SwipeableDrawer>
               </React.Fragment>
             ))}
           </ul>
+          <div
+            style={{ color: `${linkColor}` }}
+            className="md:hidden cursor-pointer"
+          >
+            <RiMoonLine size={28} />
+            <RiSunLine size={28} className="hidden" />
+          </div>
         </div>
       </nav>
 
