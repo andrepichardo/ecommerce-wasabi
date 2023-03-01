@@ -19,7 +19,7 @@ const Layout = ({ children, title }: Props) => {
       </Head>
       <div className="flex flex-col min-h-screen h-full justify-between">
         <Navbar />
-        <main>{children}</main>
+        <main className="mt-20">{children}</main>
         <Footer />
       </div>
     </>

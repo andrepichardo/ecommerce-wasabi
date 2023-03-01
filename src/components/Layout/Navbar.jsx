@@ -3,7 +3,13 @@ import Link from 'next/link';
 import logo from '../../../public/assets/WASABI-COLOR.svg';
 import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from 'react-icons/ai';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
-import { BsPersonLinesFill } from 'react-icons/bs';
+import {
+  RiHome5Line,
+  RiMenu2Line,
+  RiSearchLine,
+  RiShoppingBagLine,
+  RiUserLine,
+} from 'react-icons/ri';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -15,7 +21,7 @@ export const Navbar = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setNavBg('#ecf0f3');
+    setNavBg('#fff');
     setLinkColor('#1f2937');
   }, [router]);
 
@@ -28,14 +34,14 @@ export const Navbar = () => {
       document.documentElement.style.overflowY = 'hidden';
       document.body.scroll = 'no';
     } else {
-      document.documentElement.style.overflowY = 'scroll';
+      document.documentElement.style.overflowY = 'auto';
       document.body.scroll = 'yes';
     }
   }
 
   useEffect(() => {
     const handleShadow = () => {
-      if (window.scrollY >= window.innerHeight * 0.07) {
+      if (window.scrollY >= window.innerHeight * 0.04) {
         setShadow(true);
         setNavBg('#ecf0f3');
         setLinkColor('#1f2937');
@@ -57,10 +63,10 @@ export const Navbar = () => {
           : 'fixed w-full h-20 z-[100]'
       }
     >
-      <div className="flex justify-between items-center max-w-[1750px] mx-auto w-full h-full px-6 2xl:px-16">
+      <div className="flex justify-between items-center containerLayout">
         <Link href="/">
           <Image
-            className="cursor-pointer"
+            className="cursor-pointer active:scale-95 transition-all"
             src={logo}
             alt="Logo"
             width="75"
@@ -124,7 +130,7 @@ export const Navbar = () => {
               <div className="flex items-center justify-between">
                 <Link onClick={() => setNav(false)} href="/">
                   <Image
-                    className="cursor-pointer"
+                    className="cursor-pointer active:scale-95 transition-all"
                     src={logo}
                     alt="Logo"
                     width="80"
@@ -229,15 +235,6 @@ export const Navbar = () => {
                       <AiOutlineMail className="w-5 h-5 text-blue-800" />
                     </div>
                   </Link>
-                  <Link
-                    className="rounded-full"
-                    onClick={() => setNav(false)}
-                    href="/resume"
-                  >
-                    <div className="rounded-full shadow-lg shadow-gray-400 p-4 xs:p-5 cursor-pointer hover:scale-110 ease-in duration-300">
-                      <BsPersonLinesFill className="w-5 h-5 text-blue-800" />
-                    </div>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -253,18 +250,24 @@ export const Navbar = () => {
         ></div>
       </div>
 
-      <div className="flex md:hidden w-full items-center bg-white z-50 shadow-inner justify-between py-5 px-6 2xl:px-16 fixed bottom-0">
-        <div>
-          <BsPersonLinesFill />
+      <div className="flex md:hidden w-full items-center bg-white -z-10 shadow-inner justify-between min-h-[3.5rem] max-h-[3.5rem] py-5 px-6 2xl:px-16 fixed bottom-0">
+        <div
+          onClick={handleNav}
+          className="cursor-pointer active:scale-95 transition-all"
+        >
+          <RiMenu2Line size={24} />
         </div>
-        <div>
-          <BsPersonLinesFill />
+        <div className="cursor-pointer active:scale-95 transition-all">
+          <RiSearchLine size={24} />
         </div>
-        <div>
-          <BsPersonLinesFill />
+        <div className="cursor-pointer active:scale-95 transition-all">
+          <RiHome5Line size={24} />
         </div>
-        <div>
-          <BsPersonLinesFill />
+        <div className="cursor-pointer active:scale-95 transition-all">
+          <RiShoppingBagLine size={24} />
+        </div>
+        <div className="cursor-pointer active:scale-95 transition-all">
+          <RiUserLine size={24} />
         </div>
       </div>
     </div>
