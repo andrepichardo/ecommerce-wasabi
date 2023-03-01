@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '../../../public/assets/WASABI-COLOR.svg';
-import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineMail } from 'react-icons/ai';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import {
   RiHome5Line,
@@ -10,15 +10,30 @@ import {
   RiShoppingBagLine,
   RiUserLine,
 } from 'react-icons/ri';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { SwipeableDrawer } from '@mui/material';
+import { Box } from '@mui/system';
 
 export const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [shadow, setShadow] = useState(false);
   const [navBg, setNavBg] = useState('#fff');
   const [linkColor, setLinkColor] = useState('#1f2937');
+  const [drawer, setDrawer] = useState(false);
   const router = useRouter();
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setDrawer({ ...drawer, [anchor]: open });
+  };
 
   useEffect(() => {
     setNavBg('#fff');
@@ -63,7 +78,7 @@ export const Navbar = () => {
           : 'fixed w-full h-20 z-[100]'
       }
     >
-      <div className="flex justify-between items-center containerLayout">
+      <nav className="flex justify-between items-center containerLayout">
         <Link href="/">
           <Image
             className="cursor-pointer active:scale-95 transition-all"
@@ -84,19 +99,31 @@ export const Navbar = () => {
             <div className="cursor-pointer active:scale-95 transition-all">
               <button className="font-bold">Sign In</button>
             </div>
-            <div className="cursor-pointer active:scale-95 transition-all">
-              <RiShoppingBagLine size={24} />
-            </div>
+            {[''].map((anchor) => (
+              <React.Fragment key={anchor}>
+                <RiShoppingBagLine
+                  className="cursor-pointer active:scale-95 transition-all"
+                  onClick={toggleDrawer(anchor, true)}
+                  size={24}
+                />
+                <SwipeableDrawer
+                  anchor="right"
+                  open={drawer[anchor]}
+                  onClose={toggleDrawer(anchor, false)}
+                  onOpen={toggleDrawer(anchor, true)}
+                >
+                  <Box
+                    className="min-w-[250px] xs:min-w-[300px] sm:min-w-[400px] w-full"
+                    height={'100%'}
+                  >
+                    Hola
+                  </Box>
+                </SwipeableDrawer>
+              </React.Fragment>
+            ))}
           </ul>
-          <div
-            style={{ color: `${linkColor}` }}
-            onClick={handleNav}
-            className="md:hidden cursor-pointer"
-          >
-            <AiOutlineMenu size={28} />
-          </div>
         </div>
-      </div>
+      </nav>
 
       <div
         className={
@@ -245,11 +272,21 @@ export const Navbar = () => {
         <div className="cursor-pointer active:scale-95 transition-all">
           <RiSearchLine size={24} />
         </div>
-        <div className="cursor-pointer active:scale-95 transition-all">
+        <Link
+          href="/"
+          className="cursor-pointer active:scale-95 transition-all"
+        >
           <RiHome5Line size={24} />
-        </div>
+        </Link>
         <div className="cursor-pointer active:scale-95 transition-all">
-          <RiShoppingBagLine size={24} />
+          {[''].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <RiShoppingBagLine
+                onClick={toggleDrawer(anchor, true)}
+                size={24}
+              />
+            </React.Fragment>
+          ))}
         </div>
         <div className="cursor-pointer active:scale-95 transition-all">
           <RiUserLine size={24} />
