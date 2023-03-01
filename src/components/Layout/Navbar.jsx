@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 export const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [shadow, setShadow] = useState(false);
-  const [navBg, setNavBg] = useState('#ecf0f3');
+  const [navBg, setNavBg] = useState('#fff');
   const [linkColor, setLinkColor] = useState('#1f2937');
   const router = useRouter();
 
@@ -43,11 +43,11 @@ export const Navbar = () => {
     const handleShadow = () => {
       if (window.scrollY >= window.innerHeight * 0.04) {
         setShadow(true);
-        setNavBg('#ecf0f3');
+        setNavBg('#fff');
         setLinkColor('#1f2937');
       } else {
         setShadow(false);
-        setNavBg('#ecf0f3');
+        setNavBg('#fff');
         setLinkColor('#1f2937');
       }
     };
@@ -55,7 +55,7 @@ export const Navbar = () => {
   }, [router]);
 
   return (
-    <div
+    <header
       style={{ backgroundColor: `${navBg}` }}
       className={
         shadow
@@ -76,32 +76,17 @@ export const Navbar = () => {
         <div>
           <ul
             style={{ color: `${linkColor}` }}
-            className="hidden md:flex gap-10"
+            className="hidden md:flex items-center gap-10"
           >
-            <Link href="/" className="group text-sm uppercase">
-              Home
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-blue-400"></span>
-            </Link>
-            <Link href="/#about" className="group text-sm uppercase">
-              About
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-blue-400"></span>
-            </Link>
-            <Link href="/#skills" className="group text-sm uppercase">
-              Skills
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-blue-400"></span>
-            </Link>
-            <Link href="/#projects" className="group text-sm uppercase">
-              Projects
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-blue-400"></span>
-            </Link>
-            <Link href="/resume" className="group text-sm uppercase">
-              Resume
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-blue-400"></span>
-            </Link>
-            <Link href="/#contact" className="group text-sm uppercase">
-              Contact
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-blue-400"></span>
-            </Link>
+            <div className="cursor-pointer active:scale-95 transition-all">
+              <RiSearchLine size={24} />
+            </div>
+            <div className="cursor-pointer active:scale-95 transition-all">
+              <button className="font-bold">Sign In</button>
+            </div>
+            <div className="cursor-pointer active:scale-95 transition-all">
+              <RiShoppingBagLine size={24} />
+            </div>
           </ul>
           <div
             style={{ color: `${linkColor}` }}
@@ -270,6 +255,6 @@ export const Navbar = () => {
           <RiUserLine size={24} />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
