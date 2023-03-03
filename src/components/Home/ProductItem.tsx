@@ -6,9 +6,11 @@ export const ProductItem = ({ product }: any) => {
     <div className="shadow-xl w-full h-fit rounded-lg bg-white flex flex-col hover:scale-[101%] hover:shadow-2xl transition-all">
       <Link className="w-full" href={`/product/${product.slug}`}>
         <Image
-          className="w-full h-auto max-h-[220px] md:max-h-[260px] lg:max-h-[300px] rounded-t-lg"
-          width={1000000}
-          height={1000000}
+          priority
+          className="w-full object-cover h-auto max-h-[220px] md:max-h-[260px] lg:max-h-[300px] rounded-t-lg"
+          width={1000}
+          height={1000}
+          sizes="100vw"
           src={product.image}
           alt={product.name}
         />

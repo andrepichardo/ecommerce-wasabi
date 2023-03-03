@@ -86,8 +86,8 @@ export const Navbar = () => {
             className="cursor-pointer active:scale-95 transition-all"
             src={logo}
             alt="Logo"
-            width="75"
-            height="50"
+            width={75}
+            height={50}
           />
         </Link>
         <div className="flex items-center">
@@ -101,26 +101,43 @@ export const Navbar = () => {
             <div className="cursor-pointer active:scale-95 transition-all">
               <button className="font-bold">Sign In</button>
             </div>
-            {[''].map((anchor) => (
+            {['right'].map((anchor) => (
               <React.Fragment key={anchor}>
                 <RiShoppingBagLine
                   className="cursor-pointer active:scale-95 transition-all"
                   onClick={toggleDrawer(anchor, true)}
                   size={24}
                 />
-                <SwipeableDrawer
-                  anchor="right"
-                  open={drawer[anchor]}
-                  onClose={toggleDrawer(anchor, false)}
-                  onOpen={toggleDrawer(anchor, true)}
-                >
-                  <Box
-                    className="min-w-[250px] xs:min-w-[300px] sm:min-w-[400px] w-full"
-                    height={'100%'}
+                {drawer[anchor] !== undefined ? (
+                  <SwipeableDrawer
+                    anchor={anchor}
+                    open={drawer[anchor]}
+                    onClose={toggleDrawer(anchor, false)}
+                    onOpen={toggleDrawer(anchor, true)}
                   >
-                    Carrito
-                  </Box>
-                </SwipeableDrawer>
+                    <Box
+                      className="min-w-[250px] xs:min-w-[300px] sm:min-w-[400px] w-full"
+                      height={'100%'}
+                    >
+                      Carrito
+                    </Box>
+                  </SwipeableDrawer>
+                ) : (
+                  <SwipeableDrawer
+                    transitionDuration={2000}
+                    anchor={anchor}
+                    open={false}
+                    onClose={toggleDrawer(anchor, false)}
+                    onOpen={toggleDrawer(anchor, true)}
+                  >
+                    <Box
+                      className="min-w-[250px] xs:min-w-[300px] sm:min-w-[400px] w-full"
+                      height={'100%'}
+                    >
+                      Carrito
+                    </Box>
+                  </SwipeableDrawer>
+                )}
               </React.Fragment>
             ))}
           </ul>
@@ -288,7 +305,7 @@ export const Navbar = () => {
           <RiHome5Line size={24} />
         </Link>
         <div className="cursor-pointer active:scale-95 transition-all">
-          {[''].map((anchor) => (
+          {['right'].map((anchor) => (
             <React.Fragment key={anchor}>
               <RiShoppingBagLine
                 onClick={toggleDrawer(anchor, true)}
