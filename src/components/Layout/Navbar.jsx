@@ -47,7 +47,7 @@ export const Navbar = () => {
   };
 
   if (typeof window !== 'undefined') {
-    if (nav === true) {
+    if (nav === true || drawer['right'] === true) {
       document.documentElement.style.overflowY = 'hidden';
       document.body.scroll = 'no';
     } else {
@@ -153,15 +153,17 @@ export const Navbar = () => {
 
       <div
         className={
-          nav ? 'fixed left-0 top-0 w-full h-full min-h-screen bg-black/60' : ''
+          nav
+            ? 'fixed left-0 top-0 w-full h-full min-h-screen bg-black/60 transition-all duration-300'
+            : 'fixed left-0 top-0 w-full h-full min-h-screen bg-none transition-all duration-300 invisible'
         }
       >
         <div className="flex">
           <div
             className={
               nav
-                ? 'fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] lg:w-[30%] xl:w-[25%] flex flex-col overflow-y-auto bg-[#ecf0f3] h-full min-h-full  px-5 pt-5 pb-8 xs:px-10 transition-all duration-1000'
-                : 'fixed left-[-100%] top-0 w-[75%] sm:w-[60%] md:w-[45%] lg:w-[30%] xl:w-[25%] flex flex-col overflow-y-auto bg-[#ecf0f3] h-full min-h-full px-5 pt-5 pb-8 xs:px-10 transition-all duration-1000'
+                ? 'fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] lg:w-[30%] xl:w-[25%] flex flex-col overflow-y-auto bg-white h-full min-h-full  px-5 pt-5 pb-8 xs:px-10 transition-all duration-300'
+                : 'fixed left-[-100%] top-0 w-[75%] sm:w-[60%] md:w-[45%] lg:w-[30%] xl:w-[25%] flex flex-col overflow-y-auto bg-white h-full min-h-full px-5 pt-5 pb-8 xs:px-10 transition-all duration-300'
             }
           >
             <div className="flex flex-col">
