@@ -19,11 +19,9 @@ const Layout = ({ children, title }: Props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col min-h-screen justify-between">
+      <div className="flex flex-col w-full h-full justify-between">
         <Navbar />
-        <main className="containerLayout bg-gradient-to-b from-[#c190f4]/10 to-[#c190f4]/20 mt-20">
-          {children}
-        </main>
+        <main className="containerLayout bg-white mt-20">{children}</main>
         <Footer />
       </div>
     </div>
