@@ -12,12 +12,15 @@ import {
   RiSunLine,
   RiUserLine,
 } from 'react-icons/ri';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { SwipeableDrawer } from '@mui/material';
 import { Box } from '@mui/system';
+import { Store } from '@/utils/Store';
 
 export const Navbar = () => {
+  const { state } = useContext(Store);
+  const { cart } = state;
   const [nav, setNav] = useState(false);
   const [shadow, setShadow] = useState(false);
   const [navBg, setNavBg] = useState('#fff');
@@ -103,11 +106,17 @@ export const Navbar = () => {
             </div>
             {['right'].map((anchor) => (
               <React.Fragment key={anchor}>
-                <RiShoppingBagLine
-                  className="cursor-pointer active:scale-95 transition-all"
+                <div
+                  className="cursor-pointer active:scale-95 transition-all relative"
                   onClick={toggleDrawer(anchor, true)}
-                  size={24}
-                />
+                >
+                  <RiShoppingBagLine size={24} />
+                  {cart.cartItems.length > 0 && (
+                    <span className="bg-red-500 font-semibold rounded-full absolute flex items-center justify-center px-1 min-w-[1.25rem] h-5 -top-1 -right-2 text-xs text-white">
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </span>
+                  )}
+                </div>
                 {drawer[anchor] !== undefined ? (
                   <SwipeableDrawer
                     anchor={anchor}
@@ -306,16 +315,22 @@ export const Navbar = () => {
         >
           <RiHome5Line size={24} />
         </Link>
-        <div className="cursor-pointer active:scale-95 transition-all">
-          {['right'].map((anchor) => (
-            <React.Fragment key={anchor}>
-              <RiShoppingBagLine
-                onClick={toggleDrawer(anchor, true)}
-                size={24}
-              />
+        {['right'].map((anchor) => (
+          <div
+            onClick={toggleDrawer(anchor, true)}
+            key={anchor}
+            className="cursor-pointer active:scale-95 transition-all relative"
+          >
+            <React.Fragment>
+              <RiShoppingBagLine size={24} />
+              {cart.cartItems.length > 0 && (
+                <span className="bg-red-500 font-semibold rounded-full absolute flex items-center justify-center px-1 min-w-[1.25rem] h-5 -top-1 -right-2 text-xs text-white">
+                  {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </span>
+              )}
             </React.Fragment>
-          ))}
-        </div>
+          </div>
+        ))}
         <div className="cursor-pointer active:scale-95 transition-all">
           <RiUserLine size={24} />
         </div>

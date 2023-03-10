@@ -1,15 +1,30 @@
 import Layout from '@/components/Layout/Layout';
 import data from '../../utils/data';
+import { Store } from '../../utils/Store';
 import { useRouter } from 'next/router';
 import { FiChevronLeft } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useContext } from 'react';
 
 const ProductDetails = () => {
+  const { state, dispatch } = useContext(Store);
   const { query } = useRouter();
   const { slug } = query;
   const product = data.products.find((x) => x.slug === slug);
   if (!product) return <div>Product not Found.</div>;
+
+  const addToCartHandler = () => {
+    const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    if (product.countInStock < quantity) {
+      alert('Sorry, Product out of Stock.');
+      return;
+    }
+
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
+  };
 
   return (
     <Layout title={product.name}>
@@ -65,12 +80,15 @@ const ProductDetails = () => {
               </li>
             </ul>
             <hr />
-            <div className="w-full flex justify-between items-center gap-5 md:gap-10 lg:gap-16">
+            <div className="w-full flex justify-between items-center gap-6">
               <h3 className="text-2xl">
                 RD$<b>{product.price.toFixed(2)}</b>
               </h3>
               <div className="w-full">
-                <button className="w-full bg-pink-100 hover:bg-pink-50 transition-all rounded-md py-2">
+                <button
+                  onClick={addToCartHandler}
+                  className="w-full bg-pink-100 hover:bg-pink-50 transition-all rounded-md py-2"
+                >
                   Add to Cart
                 </button>
               </div>
