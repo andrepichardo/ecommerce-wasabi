@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { SwipeableDrawer } from '@mui/material';
 import { Box } from '@mui/system';
 import { Store } from '@/utils/Store';
+import { ShoppingCart } from '../Cart/ShoppingCart';
 
 export const Navbar = () => {
   const { state } = useContext(Store);
@@ -123,10 +124,10 @@ export const Navbar = () => {
                     onOpen={toggleDrawer(anchor, true)}
                   >
                     <Box
-                      className="min-w-[250px] xs:min-w-[300px] sm:min-w-[400px] w-full"
+                      className="min-w-[250px] xs:min-w-[380px] sm:min-w-[400px] w-full"
                       height={'100%'}
                     >
-                      Carrito
+                      <ShoppingCart />
                     </Box>
                   </SwipeableDrawer>
                 ) : (
@@ -141,7 +142,7 @@ export const Navbar = () => {
                       className="min-w-[250px] xs:min-w-[300px] sm:min-w-[400px] w-full"
                       height={'100%'}
                     >
-                      Carrito
+                      <ShoppingCart />
                     </Box>
                   </SwipeableDrawer>
                 )}
